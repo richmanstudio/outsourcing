@@ -1,0 +1,6 @@
+/* Compatibility for utility pages */
+.container { width: min(100%, var(--shell)); margin-inline: auto; padding-inline: var(--gutter); }
+.eyebrow { display: inline-flex; align-items: center; gap: 12px; font-size: 11px; font-weight: 700; letter-spacing: .15em; text-transform: uppercase; }
+.eyebrow::before { content: ""; width: 28px; height: 1px; background: currentColor; opacity: .55; }
+.button-primary { color: var(--white); background: var(--ink); }
+.lead { font-size: 21px; line-height: 1.5; }
