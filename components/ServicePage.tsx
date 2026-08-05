@@ -4,87 +4,98 @@ import { Header } from "@/components/Header";
 import type { Service } from "@/data/services";
 import { siteConfig } from "@/data/site";
 
-type ServicePageProps = { service: Service };
-
-export function ServicePage({ service }: ServicePageProps) {
+export function ServicePage({ service }: { service: Service }) {
   return (
     <>
       <Header />
       <main id="main">
-        <section className="subpage-hero">
-          <div className="shell">
-            <div className="breadcrumbs">
+        <section className="service-hero-v3">
+          <div className="service-hero-grid" aria-hidden="true" />
+          <div className="shell service-hero-v3-shell">
+            <div className="service-breadcrumbs">
               <Link href="/">Главная</Link><span>/</span><span>{service.breadcrumb}</span>
             </div>
 
-            <div className="subpage-hero-grid">
-              <div>
-                <span className="section-label section-label-light">Практика {service.index}</span>
+            <div className="service-hero-v3-layout">
+              <div className="service-hero-v3-copy">
+                <span className="kicker kicker-on-dark">Практика {service.index}</span>
                 <h1>{service.title}</h1>
-              </div>
-              <div>
                 <p>{service.intro}</p>
-                <Link className="button button-accent" href="/#consultation">
-                  {service.ctaLabel}<span aria-hidden="true">↗</span>
-                </Link>
+                <div className="service-hero-actions">
+                  <Link className="button button-copper" href="/#consultation">
+                    {service.ctaLabel} <span aria-hidden="true">↗</span>
+                  </Link>
+                  <a className="text-link text-link-light" href={`tel:${siteConfig.phone}`}>{siteConfig.phoneDisplay}</a>
+                </div>
               </div>
-            </div>
 
-            <div className="subpage-meta">
-              {service.meta.map((item) => (
-                <div key={item.label}><span>{item.label}</span><strong>{item.value}</strong></div>
-              ))}
+              <aside className="service-brief" aria-label="Краткая информация об услуге">
+                <span className="service-brief-index">{service.index}</span>
+                <div className="service-brief-meta">
+                  {service.meta.map((item) => (
+                    <div key={item.label}><span>{item.label}</span><strong>{item.value}</strong></div>
+                  ))}
+                </div>
+                <div className="service-brief-foot">
+                  <span>Аутсорсинг ДВ</span>
+                  <span>Хабаровск · ДФО</span>
+                </div>
+              </aside>
             </div>
           </div>
         </section>
 
-        <section className="section">
-          <div className="shell content-grid">
-            <aside className="sticky-aside">
-              <span className="section-label">Содержание</span>
+        <section className="section service-content-v3">
+          <div className="shell service-content-v3-layout">
+            <aside className="service-toc">
+              <span className="kicker">Содержание</span>
               <nav aria-label="Содержание страницы">
-                {service.sections.map((section) => (
-                  <a key={section.id} href={`#${section.id}`}>{section.navLabel}</a>
+                {service.sections.map((section, index) => (
+                  <a key={section.id} href={`#${section.id}`}><span>0{index + 1}</span>{section.navLabel}</a>
                 ))}
               </nav>
+              <div className="service-toc-contact">
+                <span>Консультация</span>
+                <strong>{siteConfig.consultationPrice}</strong>
+                <Link href="/#consultation">Записаться ↗</Link>
+              </div>
             </aside>
 
-            <div>
-              {service.sections.map((section) => (
-                <section className="content-block" id={section.id} key={section.id}>
-                  <h2>{section.title}</h2>
-                  {section.lead ? <p className="lead">{section.lead}</p> : null}
-                  {section.items?.length ? (
-                    <ul className="content-list">
-                      {section.items.map((item) => <li key={item}>{item}</li>)}
-                    </ul>
-                  ) : null}
-                  {section.notice ? (
-                    <div className="notice-box">
-                      <strong>{section.notice.title}</strong>
-                      <p>{section.notice.text}</p>
-                    </div>
-                  ) : null}
+            <div className="service-article">
+              {service.sections.map((section, index) => (
+                <section className="service-block" id={section.id} key={section.id}>
+                  <div className="service-block-index">0{index + 1}</div>
+                  <div className="service-block-copy">
+                    <h2>{section.title}</h2>
+                    {section.lead ? <p className="service-lead">{section.lead}</p> : null}
+                    {section.items?.length ? (
+                      <ul className="service-list">
+                        {section.items.map((item) => <li key={item}>{item}</li>)}
+                      </ul>
+                    ) : null}
+                    {section.notice ? (
+                      <div className="service-notice">
+                        <span>Важно</span>
+                        <div><strong>{section.notice.title}</strong><p>{section.notice.text}</p></div>
+                      </div>
+                    ) : null}
+                  </div>
                 </section>
               ))}
             </div>
           </div>
         </section>
 
-        <section className="section cta-band">
-          <div className="shell cta-band-grid">
+        <section className="section service-cta-v3">
+          <div className="shell service-cta-v3-layout">
             <div>
-              <span className="section-label section-label-light">Следующий шаг</span>
+              <span className="kicker kicker-on-dark">Следующий шаг</span>
               <h2>{service.cta.title}</h2>
               <p>{service.cta.text}</p>
             </div>
-            <div className="cta-band-actions">
-              <Link className="button button-accent" href="/#consultation">
-                {service.cta.primary}<span aria-hidden="true">↗</span>
-              </Link>
-              <a className="button button-outline-light" href={`tel:${siteConfig.phone}`}>
-                Позвонить<span aria-hidden="true">↗</span>
-              </a>
+            <div className="service-cta-v3-actions">
+              <Link className="button button-ice" href="/#consultation">{service.cta.primary} <span aria-hidden="true">↗</span></Link>
+              <a className="text-link text-link-light" href={`tel:${siteConfig.phone}`}>Позвонить {siteConfig.phoneDisplay}</a>
             </div>
           </div>
         </section>
