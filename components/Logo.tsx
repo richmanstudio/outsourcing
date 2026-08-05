@@ -1,21 +1,22 @@
 import Link from "next/link";
 import { siteConfig } from "@/data/site";
 
-type LogoProps = { className?: string };
+type LogoProps = { className?: string; inverse?: boolean };
 
-export function Logo({ className = "" }: LogoProps) {
+export function Logo({ className = "", inverse = false }: LogoProps) {
   return (
     <Link
-      className={`brand ${className}`.trim()}
+      className={`brand${inverse ? " brand-inverse" : ""} ${className}`.trim()}
       href="/"
       aria-label={`${siteConfig.name} — главная`}
     >
-      <span className="brand-seal" aria-hidden="true">
-        <span>ДВ</span>
+      <span className="brand-mark" aria-hidden="true">
+        <span className="brand-mark-d">Д</span>
+        <span className="brand-mark-v">В</span>
       </span>
-      <span className="brand-copy">
+      <span className="brand-wordmark">
         <strong>Аутсорсинг ДВ</strong>
-        <small>Юридическая компания</small>
+        <small>Юридическая фирма · Хабаровск</small>
       </span>
     </Link>
   );

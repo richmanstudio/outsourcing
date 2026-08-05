@@ -7,9 +7,10 @@ import { Logo } from "@/components/Logo";
 import { siteConfig } from "@/data/site";
 
 const navigation = [
-  { href: "/#services", label: "Практики" },
+  { href: "/#practices", label: "Практики" },
+  { href: "/#experience", label: "Опыт" },
   { href: "/#team", label: "Команда" },
-  { href: "/#approach", label: "Подход" },
+  { href: "/#business", label: "Бизнесу" },
   { href: "/#contacts", label: "Контакты" },
 ] as const;
 
@@ -21,7 +22,7 @@ export function Header() {
   useEffect(() => setMenuOpen(false), [pathname]);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 16);
+    const onScroll = () => setScrolled(window.scrollY > 12);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -34,6 +35,7 @@ export function Header() {
 
   return (
     <header className={`site-header${scrolled ? " is-scrolled" : ""}`}>
+      <div className="header-rule" aria-hidden="true" />
       <div className="shell header-inner">
         <Logo />
 
@@ -44,10 +46,8 @@ export function Header() {
         </nav>
 
         <div className="header-actions">
-          <a className="header-phone" href={`tel:${siteConfig.phone}`}>
-            {siteConfig.phoneDisplay}
-          </a>
-          <Link className="button button-dark button-compact desktop-cta" href="/#consultation">
+          <a className="header-phone" href={`tel:${siteConfig.phone}`}>{siteConfig.phoneDisplay}</a>
+          <Link className="header-cta" href="/#consultation">
             Записаться
             <span aria-hidden="true">↗</span>
           </Link>
@@ -67,18 +67,21 @@ export function Header() {
 
       <div className="mobile-menu" id="mobile-menu" hidden={!menuOpen}>
         <div className="shell mobile-menu-inner">
+          <div className="mobile-menu-meta">
+            <span>Хабаровск</span>
+            <span>{siteConfig.hours}</span>
+          </div>
           <nav aria-label="Мобильная навигация">
             {navigation.map((item, index) => (
               <Link key={item.href} href={item.href} onClick={() => setMenuOpen(false)}>
-                <span>0{index + 1}</span>{item.label}
+                <span>0{index + 1}</span><strong>{item.label}</strong><i aria-hidden="true">↗</i>
               </Link>
             ))}
           </nav>
           <div className="mobile-menu-footer">
             <a href={`tel:${siteConfig.phone}`}>{siteConfig.phoneDisplay}</a>
-            <Link className="button button-accent" href="/#consultation" onClick={() => setMenuOpen(false)}>
-              Записаться на консультацию
-              <span aria-hidden="true">↗</span>
+            <Link className="button button-copper" href="/#consultation" onClick={() => setMenuOpen(false)}>
+              Записаться на консультацию <span aria-hidden="true">↗</span>
             </Link>
           </div>
         </div>
