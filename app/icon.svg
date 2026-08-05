@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" fill="#171719"/>
+  <rect x="11" y="11" width="42" height="42" fill="none" stroke="#f2f0ea" stroke-width="1.5"/>
+  <path d="M16 51L48 13" stroke="#8f2f42" stroke-width="3"/>
+  <rect x="20" y="23" width="24" height="18" fill="#171719"/>
+  <text x="32" y="37" text-anchor="middle" font-family="Georgia,serif" font-size="16" fill="#f2f0ea">ДВ</text>
+</svg>
