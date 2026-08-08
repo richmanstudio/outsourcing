@@ -1,0 +1,59 @@
+/* Corporate palette precedence fixes.
+   v4-corporate.css defines a paper background on .corp-section, which previously
+   overrode the shared .section-ink / .section-sand theme utilities because v4 is
+   loaded later in the cascade. Keep explicit section themes authoritative. */
+
+.corp-section.section-paper {
+  color: var(--ink);
+  background: var(--paper);
+}
+
+.corp-section.section-sand {
+  color: var(--ink);
+  background: var(--paper-2);
+}
+
+.corp-section.section-ink {
+  color: var(--white);
+  background: var(--ink);
+}
+
+.corp-section.section-ink .corp-light-title {
+  color: var(--white);
+}
+
+.corp-section.section-ink .kicker-on-dark {
+  color: rgba(255, 255, 255, .64);
+}
+
+.corp-section.section-ink .corp-timeline {
+  border-top-color: rgba(255, 255, 255, .45);
+}
+
+.corp-section.section-ink .corp-timeline article {
+  border-bottom-color: var(--line-dark);
+}
+
+.corp-section.section-ink .corp-timeline strong {
+  color: var(--white);
+}
+
+.corp-section.section-ink .corp-timeline p {
+  color: rgba(255, 255, 255, .48);
+}
+
+.corp-section.section-ink .business-model-grid {
+  border-top-color: rgba(255, 255, 255, .42);
+}
+
+.corp-section.section-ink .business-model-grid article {
+  border-bottom-color: var(--line-dark);
+}
+
+.corp-section.section-ink .contact-channel-grid {
+  border-top-color: rgba(255, 255, 255, .42);
+}
+
+.corp-section.section-ink .contact-channel-grid a {
+  border-bottom-color: var(--line-dark);
+}
