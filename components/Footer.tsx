@@ -19,7 +19,11 @@ export function Footer() {
 
         <div className="footer-column">
           <span>Связаться</span>
-          <a href={`tel:${siteConfig.phone}`}>{siteConfig.phoneDisplay}</a>
+          {siteConfig.phones.map((contact) => (
+            <a href={`tel:${contact.phone}`} key={contact.id}>
+              {contact.name} · {contact.phoneDisplay}
+            </a>
+          ))}
           <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>
         </div>
 
