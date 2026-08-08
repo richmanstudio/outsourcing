@@ -8,6 +8,26 @@ export const siteConfig = {
   ogrnip: "323270000003871",
   phone: "+79141740873",
   phoneDisplay: "+7 914 174-08-73",
+  phones: [
+    {
+      id: "olga",
+      name: "Ольга",
+      phone: "+79141740873",
+      phoneDisplay: "+7 914 174-08-73",
+    },
+    {
+      id: "ekaterina",
+      name: "Екатерина",
+      phone: "+79147762065",
+      phoneDisplay: "+7 914 776-20-65",
+    },
+    {
+      id: "anna",
+      name: "Анна",
+      phone: "+79243051002",
+      phoneDisplay: "+7 924 305-10-02",
+    },
+  ],
   email: "bogachevaolgajr@yandex.ru",
   address: {
     street: "ул. Гамарника, 72, офис 302",
@@ -17,7 +37,7 @@ export const siteConfig = {
     postalCode: "680020",
   },
   hours: "Пн–Пт · 09:00–18:00",
-  consultationPrice: "5 000 ₽",
+  consultationPrice: "2 500 ₽",
   links: {
     whatsapp: "https://wa.me/79141740873",
     telegram: "https://t.me/outsourcing_dv",
