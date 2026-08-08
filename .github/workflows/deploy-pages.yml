@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - redesign-v3
+      - corporate-v1
   workflow_dispatch:
 
 permissions:
