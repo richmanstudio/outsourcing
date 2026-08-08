@@ -1,5 +1,6 @@
 export type TeamMember = {
   id: string;
+  slug: string;
   index: string;
   name: string;
   role: string;
@@ -17,6 +18,7 @@ export type TeamMember = {
 export const team: TeamMember[] = [
   {
     id: "bogacheva",
+    slug: "olga-bogacheva",
     index: "01",
     name: "Ольга Богачёва",
     role: "Руководитель фирмы · старший юрист",
@@ -41,6 +43,7 @@ export const team: TeamMember[] = [
   },
   {
     id: "fedorova",
+    slug: "ekaterina-fedorova",
     index: "02",
     name: "Екатерина Федорова",
     role: "Юрист",
@@ -65,6 +68,7 @@ export const team: TeamMember[] = [
   },
   {
     id: "radchenko",
+    slug: "anna-radchenko",
     index: "03",
     name: "Анна Радченко",
     role: "Юрист",
@@ -89,3 +93,5 @@ export const team: TeamMember[] = [
     sourceNote: "Специализации и показатели опубликованы в открытом профиле специалиста на lyangert.ru; биографические сведения ожидают подтверждения.",
   },
 ];
+
+export const teamBySlug = new Map(team.map((person) => [person.slug, person]));

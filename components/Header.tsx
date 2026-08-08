@@ -7,11 +7,11 @@ import { Logo } from "@/components/Logo";
 import { siteConfig } from "@/data/site";
 
 const navigation = [
-  { href: "/#practices", label: "Практики" },
-  { href: "/#experience", label: "Опыт" },
-  { href: "/#team", label: "Команда" },
-  { href: "/#business", label: "Бизнесу" },
-  { href: "/#contacts", label: "Контакты" },
+  { href: "/about", label: "О фирме" },
+  { href: "/services", label: "Практики" },
+  { href: "/team", label: "Команда" },
+  { href: "/business", label: "Бизнесу" },
+  { href: "/contacts", label: "Контакты" },
 ] as const;
 
 export function Header() {
@@ -41,13 +41,19 @@ export function Header() {
 
         <nav className="desktop-nav" aria-label="Основная навигация">
           {navigation.map((item) => (
-            <Link key={item.href} href={item.href}>{item.label}</Link>
+            <Link
+              key={item.href}
+              href={item.href}
+              aria-current={pathname === item.href || pathname.startsWith(`${item.href}/`) ? "page" : undefined}
+            >
+              {item.label}
+            </Link>
           ))}
         </nav>
 
         <div className="header-actions">
           <a className="header-phone" href={`tel:${siteConfig.phone}`}>{siteConfig.phoneDisplay}</a>
-          <Link className="header-cta" href="/#consultation">
+          <Link className="header-cta" href="/consultation">
             Записаться
             <span aria-hidden="true">↗</span>
           </Link>
@@ -80,7 +86,7 @@ export function Header() {
           </nav>
           <div className="mobile-menu-footer">
             <a href={`tel:${siteConfig.phone}`}>{siteConfig.phoneDisplay}</a>
-            <Link className="button button-copper" href="/#consultation" onClick={() => setMenuOpen(false)}>
+            <Link className="button button-copper" href="/consultation" onClick={() => setMenuOpen(false)}>
               Записаться на консультацию <span aria-hidden="true">↗</span>
             </Link>
           </div>

@@ -13,7 +13,7 @@ export function ServicePage({ service }: { service: Service }) {
           <div className="service-hero-grid" aria-hidden="true" />
           <div className="shell service-hero-v3-shell">
             <div className="service-breadcrumbs">
-              <Link href="/">Главная</Link><span>/</span><span>{service.breadcrumb}</span>
+              <Link href="/">Главная</Link><span>/</span><Link href="/services">Практики</Link><span>/</span><span>{service.breadcrumb}</span>
             </div>
 
             <div className="service-hero-v3-layout">
@@ -22,7 +22,7 @@ export function ServicePage({ service }: { service: Service }) {
                 <h1>{service.title}</h1>
                 <p>{service.intro}</p>
                 <div className="service-hero-actions">
-                  <Link className="button button-copper" href="/#consultation">
+                  <Link className="button button-copper" href="/consultation">
                     {service.ctaLabel} <span aria-hidden="true">↗</span>
                   </Link>
                   <a className="text-link text-link-light" href={`tel:${siteConfig.phone}`}>{siteConfig.phoneDisplay}</a>
@@ -57,7 +57,7 @@ export function ServicePage({ service }: { service: Service }) {
               <div className="service-toc-contact">
                 <span>Консультация</span>
                 <strong>{siteConfig.consultationPrice}</strong>
-                <Link href="/#consultation">Записаться ↗</Link>
+                <Link href="/consultation">Записаться ↗</Link>
               </div>
             </aside>
 
@@ -94,7 +94,7 @@ export function ServicePage({ service }: { service: Service }) {
               <p>{service.cta.text}</p>
             </div>
             <div className="service-cta-v3-actions">
-              <Link className="button button-ice" href="/#consultation">{service.cta.primary} <span aria-hidden="true">↗</span></Link>
+              <Link className="button button-ice" href="/consultation">{service.cta.primary} <span aria-hidden="true">↗</span></Link>
               <a className="text-link text-link-light" href={`tel:${siteConfig.phone}`}>Позвонить {siteConfig.phoneDisplay}</a>
             </div>
           </div>
