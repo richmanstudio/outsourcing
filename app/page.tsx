@@ -9,6 +9,7 @@ import { getSiteUrl, siteConfig } from "@/data/site";
 import { team } from "@/data/team";
 
 const teamHref: Record<string, string> = { bogacheva: "/team/olga-bogacheva", fedorova: "/team/ekaterina-fedorova", radchenko: "/team/anna-radchenko" };
+const practiceTone = ["mist", "sage", "paper", "wine", "copper", "ink"] as const;
 
 export default function HomePage() {
   const schema = {
@@ -25,24 +26,49 @@ export default function HomePage() {
     sameAs: [siteConfig.links.telegram, siteConfig.links.vk, siteConfig.links.twoGis],
   };
 
-  return <><StructuredData data={schema} /><Header /><main id="main">
-    <section className="portal-hero"><div className="portal-grid-bg" aria-hidden="true" /><div className="shell portal-hero-shell">
-      <div className="portal-hero-kicker"><span>Юридическая фирма · Хабаровск</span><span>Дальний Восток</span></div>
-      <div className="portal-hero-layout"><div><span className="kicker kicker-on-dark">Сложные споры · точная позиция</span><h1>Юридическая фирма для сложных споров и бизнеса.</h1><p>Арбитраж, наследство, семейные, имущественные и уголовные дела. Команда с опытом работы внутри судебной системы.</p><div className="portal-hero-actions"><Link className="button button-copper" href="/consultation">Обсудить ситуацию <span>↗</span></Link><Link className="text-link text-link-light" href="/services">Все практики</Link></div></div><aside className="portal-facts"><div><span>Опыт руководителя</span><strong>300+</strong><small>судебных процессов</small></div><div><span>Команда</span><strong>3</strong><small>профильных юриста</small></div><div><span>Консультация</span><strong>{siteConfig.consultationPrice}</strong><small>первичная оценка</small></div><div><span>Репутация</span><strong>{reviewSummary.rating}</strong><small>рейтинг в 2ГИС</small></div></aside></div>
-    </div></section>
+  return <><StructuredData data={schema} /><Header /><main id="main" className="v5-home">
+    <section className="v5-hero">
+      <div className="shell v5-hero-shell">
+        <div className="v5-hero-meta"><span>Юридическая фирма · Хабаровск</span><span>Работаем по Дальнему Востоку</span></div>
+        <div className="v5-hero-layout">
+          <div className="v5-hero-copy">
+            <span className="kicker kicker-on-dark">Сложные дела · точная позиция</span>
+            <h1>Сложные дела требуют <em>точной позиции.</em></h1>
+            <p>Арбитраж, наследственные, семейные, имущественные и уголовные дела. Сначала разбираем факты и риски — потом выбираем действие.</p>
+            <div className="v5-hero-actions"><Link className="button button-copper" href="/consultation">Обсудить ситуацию <span>↗</span></Link><Link className="v5-quiet-link" href="/services">Выбрать практику <span>↗</span></Link></div>
+            <div className="v5-hero-proofline"><span>С 2010 года — опыт внутри судебной системы</span><span>3 профильных юриста</span></div>
+          </div>
+          <aside className="v5-case-orbit" aria-label="Ключевые факты о фирме">
+            <div className="v5-orbit-glow" aria-hidden="true" />
+            <div className="v5-case-layer v5-case-layer-one"><small>СУДЕБНАЯ БАЗА</small><strong>300+</strong><span>процессов у руководителя</span></div>
+            <div className="v5-case-layer v5-case-layer-two"><small>ПЕРВИЧНАЯ ОЦЕНКА</small><strong>{siteConfig.consultationPrice}</strong><span>очно / дистанционно</span></div>
+            <div className="v5-case-layer v5-case-layer-three"><small>РЕПУТАЦИЯ</small><strong>{reviewSummary.rating}</strong><span>рейтинг в 2ГИС</span></div>
+            <div className="v5-orbit-core" aria-hidden="true"><span>ФАКТЫ</span><span>ПОЗИЦИЯ</span><span>ДЕЙСТВИЕ</span></div>
+          </aside>
+        </div>
+      </div>
+    </section>
 
-    <section className="section portal-practices"><div className="shell portal-section-head"><span className="kicker">01 / Практики</span><div><h2>Выберите категорию вопроса.</h2><p>Главная больше не заменяет весь сайт: подробности, документы и порядок работы находятся на страницах практик.</p></div><Link className="text-link" href="/services">Все практики ↗</Link></div><div className="shell portal-practice-grid">{services.map((service) => <Link href={`/services/${service.slug}`} key={service.slug}><span>{service.index}</span><h3>{service.breadcrumb}</h3><p>{service.intro}</p><i>↗</i></Link>)}</div></section>
+    <section className="v5-trust-strip"><div className="shell"><span>Арбитраж</span><span>Уголовные дела</span><span>Наследство</span><span>Семья</span><span>Имущество</span><span>Бизнес</span></div></section>
 
-    <section className="section section-ink portal-proof"><div className="shell portal-proof-layout"><div><span className="kicker kicker-on-dark">02 / Профессиональная база</span><h2>Опыт внутри арбитражных судов — не декорация, а часть метода.</h2><p>С 2010 года профессиональный путь руководителя связан с арбитражной судебной системой, а с 2017 года — с самостоятельной юридической практикой.</p><div className="portal-proof-actions"><Link className="button button-ice" href="/about">О фирме <span>↗</span></Link><Link className="text-link text-link-light" href="/team">Команда</Link></div></div><div className="portal-team-mini">{team.map((person) => <Link href={teamHref[person.id]} key={person.id}><img src={`${process.env.PAGES_BASE_PATH ?? ""}${person.image}`} alt={person.name} width="240" height="300" loading="lazy" /><div><span>{person.role}</span><strong>{person.name}</strong><small>{person.shortRole}</small></div></Link>)}</div></div></section>
+    <section className="section v5-practices">
+      <div className="shell v5-section-heading"><div><span className="kicker">01 / Практики</span><h2>Правовая помощь начинается с правильной категории вопроса.</h2></div><div><p>На странице каждой практики — ситуации, документы, порядок работы и прямой контакт профильного специалиста.</p><Link className="v5-quiet-link" href="/services">Все практики <span>↗</span></Link></div></div>
+      <div className="shell v5-practice-bento">{services.map((service, index) => <Link className={`v5-practice-card tone-${practiceTone[index % practiceTone.length]} card-${index + 1}`} href={`/services/${service.slug}`} key={service.slug}><div><span>{service.index}</span><i>↗</i></div><h3>{service.breadcrumb}</h3><p>{service.intro}</p><div className="v5-card-object" aria-hidden="true" /></Link>)}</div>
+    </section>
 
-    <section className="section portal-cases"><div className="shell portal-split-feature"><div><span className="kicker">03 / Судебная практика</span><h2>Кейсы — только после обезличивания и подтверждения результата.</h2><p>Система Cases уже выделена в отдельный раздел. По мере получения материалов здесь появятся дела с задачей, стратегией, результатом и ответственным специалистом.</p><Link className="button button-dark" href="/cases">Судебная практика <span>↗</span></Link></div><div className="portal-case-placeholder"><span>CASE SYSTEM / READY</span><strong>0</strong><p>публичных кейсов до передачи клиентом согласованных материалов</p><div>Арбитраж · Наследство · Семья · Имущество · Уголовные дела · Бизнес</div></div></div></section>
+    <section className="v5-experience-wrap">
+      <div className="shell v5-experience-panel">
+        <div className="v5-experience-copy"><span className="kicker kicker-on-dark">02 / Профессиональная база</span><h2>Опыт судебной системы встроен в метод работы.</h2><p>Фирма не начинает с обещания результата. Сначала — документы, сроки, доказательства и сценарии. После этого формируется позиция и процессуальный план.</p><div className="v5-experience-actions"><Link className="button button-ice" href="/about">О фирме <span>↗</span></Link><Link className="v5-quiet-link light" href="/team">Команда <span>↗</span></Link></div><div className="v5-experience-timeline"><span><b>2010</b> судебная система</span><span><b>2017</b> самостоятельная практика</span><span><b>2026</b> команда из 3 специалистов</span></div></div>
+        <div className="v5-team-stack">{team.map((person, index) => <Link className={`v5-team-card team-${index + 1}`} href={teamHref[person.id]} key={person.id}><img src={`${process.env.PAGES_BASE_PATH ?? ""}${person.image}`} alt={person.name} width="520" height="680" loading="lazy" /><div><span>{person.shortRole}</span><strong>{person.name}</strong><small>{person.phoneDisplay}</small></div></Link>)}</div>
+      </div>
+    </section>
 
-    <section className="section section-sand portal-publications"><div className="shell portal-section-head"><span className="kicker">04 / Экспертиза</span><div><h2>Позиция фирмы — в открытых материалах.</h2><p>Публикации помогают клиенту понять логику работы ещё до первой встречи.</p></div><Link className="text-link" href="/publications">Все публикации ↗</Link></div><div className="shell portal-publication-grid">{publications.map((item, index) => <Link href={`/publications/${item.slug}`} key={item.slug}><span>0{index+1} · {item.eyebrow}</span><h3>{item.title}</h3><p>{item.description}</p><small>{item.readingTime} ↗</small></Link>)}</div></section>
+    <section className="section v5-business-section"><div className="shell v5-business-surface"><div className="v5-business-orb" aria-hidden="true" /><div><span className="kicker">03 / Для бизнеса</span><h2>Юридическая функция, которая знает контекст компании.</h2><p>Договоры, претензии, дебиторская задолженность, арбитраж и текущие вопросы — в одной системе сопровождения.</p></div><div className="v5-business-actions"><Link className="button button-dark" href="/business">Юридический аутсорсинг <span>↗</span></Link><Link className="v5-quiet-link" href="/consultation">Обсудить нагрузку <span>↗</span></Link></div></div></section>
 
-    <section className="section portal-reviews"><div className="shell portal-review-layout"><div className="portal-review-score"><span className="kicker">05 / Репутация</span><strong>{reviewSummary.rating}</strong><p>рейтинг компании в {reviewSummary.source}</p><a href={reviewSummary.sourceUrl} target="_blank" rel="noreferrer">Открыть источник ↗</a></div><div className="portal-review-list">{reviewHighlights.map((item, index) => <article key={item.category}><span>0{index+1}</span><div><h3>{item.category}</h3><p>{item.text}</p></div></article>)}<Link className="text-link" href="/reviews">Все отзывы и источники ↗</Link></div></div></section>
+    <section className="section v5-expertise-section"><div className="shell v5-section-heading"><div><span className="kicker">04 / Экспертиза</span><h2>Проверяйте подход до первой встречи.</h2></div><div><p>Судебная практика, публикации и публичная репутация вынесены в самостоятельные разделы.</p></div></div><div className="shell v5-expertise-grid"><Link className="v5-case-folder" href="/cases"><span>СУДЕБНАЯ ПРАКТИКА</span><h3>Cases</h3><p>Публикуем только после обезличивания и подтверждения результата клиентом.</p><i>Открыть раздел ↗</i><div className="v5-folder-tab" aria-hidden="true" /></Link><div className="v5-publication-feature"><div className="v5-publication-head"><span>ПУБЛИКАЦИИ</span><Link href="/publications">Все материалы ↗</Link></div>{publications.slice(0,3).map((item,index) => <Link href={`/publications/${item.slug}`} key={item.slug}><small>0{index+1} · {item.eyebrow}</small><h3>{item.title}</h3><span>{item.readingTime} ↗</span></Link>)}</div></div></section>
 
-    <section className="section portal-business"><div className="shell portal-business-layout"><div><span className="kicker kicker-on-dark">06 / Бизнесу</span><h2>Юридическая функция без разрозненных обращений.</h2><p>Договоры, претензии, взыскание, арбитраж и текущая правовая поддержка в одном постоянном контексте.</p></div><div><Link className="button button-ice" href="/business">О сопровождении бизнеса <span>↗</span></Link><Link className="text-link text-link-light" href="/consultation">Обсудить нагрузку</Link></div></div></section>
+    <section className="section v5-reputation-section"><div className="shell v5-reputation-surface"><div className="v5-rating"><span className="kicker">05 / Репутация</span><strong>{reviewSummary.rating}</strong><p>{reviewSummary.count} публичных отзывов · {reviewSummary.source}</p><a href={reviewSummary.sourceUrl} target="_blank" rel="noreferrer">Проверить источник ↗</a></div><div className="v5-review-cards">{reviewHighlights.slice(0,3).map((item,index) => <article key={item.category}><span>0{index+1}</span><h3>{item.category}</h3><p>{item.text}</p></article>)}</div><Link className="v5-quiet-link" href="/reviews">Все отзывы <span>↗</span></Link></div></section>
 
-    <section className="section portal-contact"><div className="shell portal-contact-layout"><div><span className="kicker">07 / Контакт</span><h2>Начните с первичной оценки ситуации.</h2><p>{siteConfig.address.city}, ул. Гамарника, 72, офис 302 · {siteConfig.hours}</p></div><div><strong>{siteConfig.consultationPrice}</strong><span>первичная консультация</span><Link className="button button-dark" href="/consultation">Записаться <span>↗</span></Link><Link className="text-link" href="/contacts">Все контакты</Link></div></div></section>
+    <section className="section v5-contact-section"><div className="shell v5-contact-surface"><div><span className="kicker kicker-on-dark">06 / Следующий шаг</span><h2>Начните с точной оценки ситуации.</h2><p>{siteConfig.address.city}, ул. Гамарника, 72, офис 302 · {siteConfig.hours}</p></div><div><span>Первичная консультация</span><strong>{siteConfig.consultationPrice}</strong><Link className="button button-ice" href="/consultation">Записаться <span>↗</span></Link><Link className="v5-quiet-link light" href="/contacts">Все контакты <span>↗</span></Link></div></div></section>
   </main><Footer /></>;
 }
