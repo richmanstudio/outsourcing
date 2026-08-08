@@ -6,6 +6,7 @@ on:
       - main
       - redesign-v3
       - portal-v2
+      - redesign-v5
   workflow_dispatch:
 
 permissions:
