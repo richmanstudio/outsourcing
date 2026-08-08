@@ -38,7 +38,7 @@ export default function HomePage() {
     "@id": `${getSiteUrl().toString()}#legal-service`,
     name: siteConfig.name,
     url: getSiteUrl().toString(),
-    telephone: siteConfig.phone,
+    telephone: siteConfig.phones.map((contact) => contact.phone),
     email: siteConfig.email,
     priceRange: "₽₽",
     address: {
@@ -100,7 +100,7 @@ export default function HomePage() {
                   <strong>Опыт внутри судебной системы</strong>
                 </div>
                 <ol className="court-track">
-                  <li><time>2010–2011</time><p>Банкротный состав Арбитражного суда Хабаровского края</p></li>
+                  <li><time>2010–2012011</time><p>Банкротный состав Арбитражного суда Хабаровского края</p></li>
                   <li><time>2012–2014</time><p>Помощник судьи Арбитражного суда Хабаровского края</p></li>
                   <li><time>2014–2016</time><p>Аппарат Арбитражного суда Дальневосточного округа</p></li>
                   <li><time>с 2017</time><p>Самостоятельная юридическая практика</p></li>
@@ -116,7 +116,7 @@ export default function HomePage() {
               <div><strong>300+</strong><span>судебных процессов у руководителя</span></div>
               <div><strong>3</strong><span>профильных юриста</span></div>
               <div><strong>4,9</strong><span>рейтинг компании в 2ГИС</span></div>
-              <div><strong>5 000 ₽</strong><span>первичная консультация</span></div>
+              <div><strong>{siteConfig.consultationPrice}</strong><span>первичная консультация</span></div>
             </div>
           </div>
         </section>
@@ -207,9 +207,20 @@ export default function HomePage() {
                   <span>{person.role}</span>
                 </div>
                 <div className="team-v3-person-main">
+                  <div className="team-v3-portrait">
+                    <img
+                      src={`${process.env.PAGES_BASE_PATH ?? ""}${person.image}`}
+                      alt={`${person.name} — ${person.role}`}
+                      width="360"
+                      height="480"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </div>
                   <div className="team-v3-nameblock">
                     <h3>{person.name}</h3>
                     <p>{person.shortRole}</p>
+                    <a className="team-v3-phone" href={`tel:${person.phone}`}>{person.phoneDisplay}</a>
                   </div>
                   <p className="team-v3-statement">{person.statement}</p>
                   <div className="team-v3-metrics">
@@ -340,7 +351,12 @@ export default function HomePage() {
           <div className="shell contacts-v3-grid">
             <div><span>Адрес</span><strong>ул. Гамарника, 72<br />офис 302, 3 этаж</strong></div>
             <div><span>График</span><strong>Пн–Пт<br />09:00–18:00</strong></div>
-            <div><span>Телефон</span><a href={`tel:${siteConfig.phone}`}>{siteConfig.phoneDisplay}</a></div>
+            {siteConfig.phones.map((contact) => (
+              <div key={contact.id}>
+                <span>{contact.name}</span>
+                <a href={`tel:${contact.phone}`}>{contact.phoneDisplay}</a>
+              </div>
+            ))}
             <div><span>Email</span><a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a></div>
           </div>
           <div className="shell contacts-v3-links">
