@@ -27,8 +27,7 @@ export function ConsultationForm() {
     if (Object.keys(nextErrors).length > 0) { form.querySelector<HTMLElement>("[aria-invalid='true']")?.focus(); return; }
     const message = ["Здравствуйте! Хочу записаться на юридическую консультацию.","",`Имя: ${values.name}`,`Телефон: ${values.phone}`,`Категория: ${values.topic}`,`Ситуация: ${values.message}`].join("\n");
     const url = `${siteConfig.links.whatsapp}?text=${encodeURIComponent(message)}`;
-    const popup = window.open(url, "_blank", "noopener,noreferrer");
-    if (!popup) window.location.assign(url);
+    window.location.assign(url);
     setStatus("Сообщение подготовлено. Проверьте его в WhatsApp и нажмите «Отправить».");
   };
 
