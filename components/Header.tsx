@@ -18,13 +18,12 @@ const navigation = [
 
 export function Header() {
   const pathname = usePathname();
-  const [open, setOpen] = useState(false);
-
-  useEffect(() => setOpen(false), [pathname]);
+  const [menu, setMenu] = useState({ path: pathname, open: false });
+  const open = menu.path === pathname && menu.open;
 
   useEffect(() => {
     const closeOnEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setOpen(false);
+      if (event.key === "Escape") setMenu({ path: pathname, open: false });
     };
     window.addEventListener("keydown", closeOnEscape);
     return () => window.removeEventListener("keydown", closeOnEscape);
@@ -50,22 +49,22 @@ export function Header() {
           <a href={"tel:" + siteConfig.phone} className="ed-header-phone">{siteConfig.phoneDisplay}</a>
           <Link href="/consultation" className="ed-header-book">Консультация <span aria-hidden="true">↗</span></Link>
         </div>
-        <button type="button" className="ed-menu-toggle" aria-expanded={open} aria-controls="ed-mobile-menu" aria-label={open ? "Закрыть меню" : "Открыть меню"} onClick={() => setOpen((value) => !value)}>
+        <button type="button" className="ed-menu-toggle" aria-expanded={open} aria-controls="ed-mobile-menu" aria-label={open ? "Закрыть меню" : "Открыть меню"} onClick={() => setMenu({ path: pathname, open: !open })}>
           <span>{open ? "Закрыть" : "Меню"}</span><span aria-hidden="true">{open ? "×" : "☰"}</span>
         </button>
       </div>
       <div className="ed-mobile-menu" id="ed-mobile-menu" hidden={!open}>
         <nav className="shell" aria-label="Мобильная навигация">
           {navigation.map((item, index) => (
-            <Link key={item.href} href={item.href} onClick={() => setOpen(false)}>
+            <Link key={item.href} href={item.href} onClick={() => setMenu({ path: pathname, open: false })}>
               <small>{String(index + 1).padStart(2, "0")}</small>{item.label}<span aria-hidden="true">↗</span>
             </Link>
           ))}
           <details>
             <summary>Направления практики <span aria-hidden="true">+</span></summary>
-            <div>{services.map((item) => <Link key={item.slug} href={"/services/" + item.slug} onClick={() => setOpen(false)}>{item.breadcrumb}</Link>)}</div>
+            <div>{services.map((item) => <Link key={item.slug} href={"/services/" + item.slug} onClick={() => setMenu({ path: pathname, open: false })}>{item.breadcrumb}</Link>)}</div>
           </details>
-          <Link className="ed-mobile-cta" href="/consultation" onClick={() => setOpen(false)}>Записаться на консультацию ↗</Link>
+          <Link className="ed-mobile-cta" href="/consultation" onClick={() => setMenu({ path: pathname, open: false })}>Записаться на консультацию ↗</Link>
           <a className="ed-mobile-phone" href={"tel:" + siteConfig.phone}>{siteConfig.phoneDisplay}</a>
         </nav>
       </div>
