@@ -466,3 +466,15 @@ body.menu-open { overflow:hidden; }
   .ed-service-notice { grid-template-columns:1fr; gap:11px; }
   .ed-service-credentials > div { grid-template-columns:84px 1fr; }
 }
+
+/* Independent reputation source */
+.ed-reviews-page { background:var(--ed-paper); }
+.ed-reviews-source { display:grid; grid-template-columns:1.1fr .8fr; gap:clamp(50px,9vw,140px); align-items:start; }
+.ed-reviews-source > div:first-child h2 { margin-top:30px; font-size:clamp(43px,5.2vw,73px); }
+.ed-reviews-source > div:first-child p { max-width:530px; margin-top:26px; color:var(--ed-muted); font-size:17px; line-height:1.65; }
+.ed-reviews-source-score { padding-top:20px; border-top:2px solid var(--ed-ink); }
+.ed-reviews-source-score > strong { display:block; font-family:var(--font-display-ui); font-size:clamp(100px,12vw,175px); letter-spacing:-.09em; font-weight:550; line-height:1; }
+.ed-reviews-source-score > span { display:block; margin-top:12px; font-size:14px; font-weight:700; }
+.ed-reviews-source-score > p { max-width:430px; margin-top:9px; font-size:13px; line-height:1.6; color:var(--ed-muted); }
+.ed-reviews-source-score > a { margin-top:26px; }
+@media (max-width:780px) { .ed-reviews-source { grid-template-columns:1fr; gap:45px; } }
