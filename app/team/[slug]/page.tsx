@@ -64,8 +64,8 @@ export default async function PersonPage({ params }: PersonRouteProps) {
 
         <section className="section corp-section">
           <div className="shell person-profile-grid">
-            <div><span className="kicker">Профессиональный профиль</span><div className="person-metric-grid">{person.metrics.map((metric) => <div key={metric.label}><strong>{metric.value}</strong><span>{metric.label}</span></div>)}</div></div>
-            <div className="corp-prose"><h2>Опыт и специализация</h2><ul className="person-experience-list">{person.experience.map((item) => <li key={item}>{item}</li>)}</ul><p className="source-note">{person.sourceNote}</p></div>
+            <div className="ed-person-summary"><span className="kicker">Профиль специалиста</span><p>{person.focus}</p></div>
+            <div className="corp-prose"><h2>Опыт и специализация</h2><ul className="person-experience-list">{person.experience.map((item) => <li key={item}>{item}</li>)}</ul></div>
           </div>
         </section>
 

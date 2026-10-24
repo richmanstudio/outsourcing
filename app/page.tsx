@@ -1,74 +1,218 @@
 import Link from "next/link";
-import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
+import { Footer } from "@/components/Footer";
 import { StructuredData } from "@/components/StructuredData";
-import { publications } from "@/data/publications";
-import { reviewHighlights, reviewSummary } from "@/data/reviews";
 import { services } from "@/data/services";
-import { getSiteUrl, siteConfig } from "@/data/site";
 import { team } from "@/data/team";
+import { publications } from "@/data/publications";
+import { reviewSummary } from "@/data/reviews";
+import { getSiteUrl, siteConfig } from "@/data/site";
 
-const teamHref: Record<string, string> = { bogacheva: "/team/olga-bogacheva", fedorova: "/team/ekaterina-fedorova", radchenko: "/team/anna-radchenko" };
-const practiceTone = ["mist", "sage", "paper", "wine", "copper", "ink"] as const;
+const feature = services[0];
+const otherServices = services.slice(1);
+const leadLawyer = team[0];
+const basePath = process.env.PAGES_BASE_PATH ?? "";
 
 export default function HomePage() {
-  const schema = {
+  const legalService = {
     "@context": "https://schema.org",
     "@type": "LegalService",
-    "@id": `${getSiteUrl().toString()}#legal-service`,
+    "@id": getSiteUrl().toString() + "#legal-service",
     name: siteConfig.name,
     url: getSiteUrl().toString(),
     telephone: siteConfig.phones.map((contact) => contact.phone),
     email: siteConfig.email,
-    priceRange: "₽₽",
-    address: { "@type": "PostalAddress", streetAddress: siteConfig.address.street, addressLocality: siteConfig.address.city, addressRegion: siteConfig.address.region, postalCode: siteConfig.address.postalCode, addressCountry: "RU" },
-    areaServed: ["Хабаровский край", "Дальний Восток"],
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: siteConfig.address.street,
+      addressLocality: siteConfig.address.city,
+      addressRegion: siteConfig.address.region,
+      postalCode: siteConfig.address.postalCode,
+      addressCountry: "RU",
+    },
+    areaServed: ["Хабаровск", "Хабаровский край", "Дальний Восток"],
     sameAs: [siteConfig.links.telegram, siteConfig.links.vk, siteConfig.links.twoGis],
   };
 
-  return <><StructuredData data={schema} /><Header /><main id="main" className="v5-home">
-    <section className="v5-hero">
-      <div className="shell v5-hero-shell">
-        <div className="v5-hero-meta"><span>Юридическая фирма · Хабаровск</span><span>Работаем по Дальнему Востоку</span></div>
-        <div className="v5-hero-layout">
-          <div className="v5-hero-copy">
-            <span className="kicker kicker-on-dark">Сложные дела · точная позиция</span>
-            <h1>Сложные дела требуют <em>точной позиции.</em></h1>
-            <p>Арбитраж, наследственные, семейные, имущественные и уголовные дела. Сначала разбираем факты и риски — потом выбираем действие.</p>
-            <div className="v5-hero-actions"><Link className="button button-copper" href="/consultation">Обсудить ситуацию <span>↗</span></Link><Link className="v5-quiet-link" href="/services">Выбрать практику <span>↗</span></Link></div>
-            <div className="v5-hero-proofline"><span>С 2010 года — опыт внутри судебной системы</span><span>3 профильных юриста</span></div>
+  return (
+    <>
+      <StructuredData data={legalService} />
+      <Header />
+      <main id="main" className="ed-home">
+        <section className="ed-hero" aria-labelledby="ed-hero-title">
+          <div className="shell ed-hero-layout">
+            <div className="ed-hero-content">
+              <p className="ed-eyebrow"><span className="ed-rule" /> Юридическая фирма / Хабаровск</p>
+              <h1 id="ed-hero-title">В сложном споре <span>важна каждая деталь.</span></h1>
+              <p className="ed-hero-lead">
+                Защищаем интересы граждан и бизнеса в судебных спорах.
+                Изучаем документы, оцениваем риски и только потом предлагаем решение.
+              </p>
+              <div className="ed-hero-actions">
+                <Link href="/consultation" className="ed-btn ed-btn-dark">
+                  Обсудить вашу ситуацию <span aria-hidden="true">↗</span>
+                </Link>
+                <Link href="/services" className="ed-text-link">Направления практики <span aria-hidden="true">↗</span></Link>
+              </div>
+              <div className="ed-hero-grounding">
+                <span>Арбитраж и гражданские споры</span>
+                <span>Очные и дистанционные консультации</span>
+              </div>
+            </div>
+            <figure className="ed-hero-portrait">
+              <div className="ed-portrait-frame">
+                <img src={basePath + leadLawyer.image} alt={leadLawyer.name + " — руководитель юридической фирмы"} width="720" height="940" fetchPriority="high" />
+              </div>
+              <figcaption>
+                <span>01 / Руководитель практики</span>
+                <strong>{leadLawyer.name}</strong>
+                <span>{leadLawyer.role}</span>
+              </figcaption>
+            </figure>
           </div>
-          <aside className="v5-case-orbit" aria-label="Ключевые факты о фирме">
-            <div className="v5-orbit-glow" aria-hidden="true" />
-            <div className="v5-case-layer v5-case-layer-one"><small>СУДЕБНАЯ БАЗА</small><strong>300+</strong><span>процессов у руководителя</span></div>
-            <div className="v5-case-layer v5-case-layer-two"><small>ПЕРВИЧНАЯ ОЦЕНКА</small><strong>{siteConfig.consultationPrice}</strong><span>очно / дистанционно</span></div>
-            <div className="v5-case-layer v5-case-layer-three"><small>РЕПУТАЦИЯ</small><strong>{reviewSummary.rating}</strong><span>рейтинг в 2ГИС</span></div>
-            <div className="v5-orbit-core" aria-hidden="true"><span>ФАКТЫ</span><span>ПОЗИЦИЯ</span><span>ДЕЙСТВИЕ</span></div>
-          </aside>
-        </div>
-      </div>
-    </section>
+        </section>
 
-    <section className="v5-trust-strip"><div className="shell"><span>Арбитраж</span><span>Уголовные дела</span><span>Наследство</span><span>Семья</span><span>Имущество</span><span>Бизнес</span></div></section>
+        <section className="ed-facts" aria-label="О фирме в цифрах">
+          <div className="shell ed-facts-grid">
+            <div><strong>2017</strong><span>Начало самостоятельной юридической практики руководителя</span></div>
+            <div><strong>03</strong><span>Специалиста с разными направлениями работы</span></div>
+            <div><strong>ДФО</strong><span>Хабаровск — офис фирмы, работа по Дальнему Востоку</span></div>
+          </div>
+        </section>
 
-    <section className="section v5-practices">
-      <div className="shell v5-section-heading"><div><span className="kicker">01 / Практики</span><h2>Правовая помощь начинается с правильной категории вопроса.</h2></div><div><p>На странице каждой практики — ситуации, документы, порядок работы и прямой контакт профильного специалиста.</p><Link className="v5-quiet-link" href="/services">Все практики <span>↗</span></Link></div></div>
-      <div className="shell v5-practice-bento">{services.map((service, index) => <Link className={`v5-practice-card tone-${practiceTone[index % practiceTone.length]} card-${index + 1}`} href={`/services/${service.slug}`} key={service.slug}><div><span>{service.index}</span><i>↗</i></div><h3>{service.breadcrumb}</h3><p>{service.intro}</p><div className="v5-card-object" aria-hidden="true" /></Link>)}</div>
-    </section>
+        <section className="ed-section ed-services" aria-labelledby="ed-services-title">
+          <div className="shell">
+            <div className="ed-section-top">
+              <p className="ed-eyebrow"><span className="ed-rule" /> 01 / Направления</p>
+              <Link href="/services" className="ed-text-link">Все направления <span aria-hidden="true">↗</span></Link>
+            </div>
+            <div className="ed-heading-row">
+              <h2 id="ed-services-title">От конкретной задачи — <em>к правовому решению.</em></h2>
+              <p>Не предлагаем универсальную стратегию для всех дел. Начинаем с характера спора, доказательств и процессуального положения.</p>
+            </div>
+            <div className="ed-services-layout">
+              <Link href={"/services/" + feature.slug} className="ed-service-feature">
+                <div className="ed-service-feature-top"><span>В фокусе практики</span><span aria-hidden="true">↗</span></div>
+                <div>
+                  <span className="ed-service-number">{feature.index} / Судебная защита</span>
+                  <h3>{feature.breadcrumb}</h3>
+                  <p>{feature.intro}</p>
+                  <span className="ed-feature-link">Подробнее о практике <span aria-hidden="true">↗</span></span>
+                </div>
+              </Link>
+              <div className="ed-service-list">
+                {otherServices.map((service) => (
+                  <Link href={"/services/" + service.slug} className="ed-service-row" key={service.slug}>
+                    <span className="ed-service-index">{service.index}</span>
+                    <span className="ed-service-row-copy"><strong>{service.breadcrumb}</strong><small>{service.intro}</small></span>
+                    <span className="ed-service-arrow" aria-hidden="true">↗</span>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
 
-    <section className="v5-experience-wrap">
-      <div className="shell v5-experience-panel">
-        <div className="v5-experience-copy"><span className="kicker kicker-on-dark">02 / Профессиональная база</span><h2>Опыт судебной системы встроен в метод работы.</h2><p>Фирма не начинает с обещания результата. Сначала — документы, сроки, доказательства и сценарии. После этого формируется позиция и процессуальный план.</p><div className="v5-experience-actions"><Link className="button button-ice" href="/about">О фирме <span>↗</span></Link><Link className="v5-quiet-link light" href="/team">Команда <span>↗</span></Link></div><div className="v5-experience-timeline"><span><b>2010</b> судебная система</span><span><b>2017</b> самостоятельная практика</span><span><b>2026</b> команда из 3 специалистов</span></div></div>
-        <div className="v5-team-stack">{team.map((person, index) => <Link className={`v5-team-card team-${index + 1}`} href={teamHref[person.id]} key={person.id}><img src={`${process.env.PAGES_BASE_PATH ?? ""}${person.image}`} alt={person.name} width="520" height="680" loading="lazy" /><div><span>{person.shortRole}</span><strong>{person.name}</strong><small>{person.phoneDisplay}</small></div></Link>)}</div>
-      </div>
-    </section>
+        <section className="ed-method" aria-labelledby="ed-method-title">
+          <div className="shell ed-method-layout">
+            <div>
+              <p className="ed-eyebrow"><span className="ed-rule" /> 02 / Как мы работаем</p>
+              <h2 id="ed-method-title">Сначала — разобраться. <em>Затем — действовать.</em></h2>
+              <p>В юридическом споре преждевременное действие иногда обходится дороже ожидания. Поэтому начинаем работу с проверяемых фактов.</p>
+              <Link className="ed-text-link" href="/about">Подход фирмы <span aria-hidden="true">↗</span></Link>
+            </div>
+            <ol className="ed-method-steps">
+              <li><span>01</span><div><h3>Изучаем материалы</h3><p>Восстанавливаем хронологию, проверяем документы и обстоятельства.</p></div></li>
+              <li><span>02</span><div><h3>Оцениваем риски</h3><p>Разбираем доказательства, сроки и вероятные варианты развития спора.</p></div></li>
+              <li><span>03</span><div><h3>Согласовываем стратегию</h3><p>Объясняем варианты, стоимость дальнейшей работы и последовательность действий.</p></div></li>
+              <li><span>04</span><div><h3>Ведём дело</h3><p>Готовим правовую позицию и сопровождаем её реализацию.</p></div></li>
+            </ol>
+          </div>
+        </section>
 
-    <section className="section v5-business-section"><div className="shell v5-business-surface"><div className="v5-business-orb" aria-hidden="true" /><div><span className="kicker">03 / Для бизнеса</span><h2>Юридическая функция, которая знает контекст компании.</h2><p>Договоры, претензии, дебиторская задолженность, арбитраж и текущие вопросы — в одной системе сопровождения.</p></div><div className="v5-business-actions"><Link className="button button-dark" href="/business">Юридический аутсорсинг <span>↗</span></Link><Link className="v5-quiet-link" href="/consultation">Обсудить нагрузку <span>↗</span></Link></div></div></section>
+        <section className="ed-team-band" aria-labelledby="ed-team-title">
+          <div className="shell">
+            <div className="ed-section-top">
+              <p className="ed-eyebrow"><span className="ed-rule" /> 03 / Люди и опыт</p>
+              <Link className="ed-text-link ed-on-dark" href="/team">Вся команда <span aria-hidden="true">↗</span></Link>
+            </div>
+            <div className="ed-team-intro">
+              <h2 id="ed-team-title">За каждым делом <em>стоит специалист.</em></h2>
+              <p>Практический опыт работы в судебной системе и самостоятельная юридическая практика. Прямые контакты и персональная ответственность за работу.</p>
+            </div>
+            <div className="ed-team-grid">
+              {team.map((person) => (
+                <Link href={"/team/" + person.slug} className="ed-team-person" key={person.id}>
+                  <div className="ed-team-photo"><img src={basePath + person.image} alt={person.name} width="540" height="680" loading="lazy" /></div>
+                  <div className="ed-team-name"><strong>{person.name}</strong><span aria-hidden="true">↗</span></div>
+                  <p>{person.shortRole}</p>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
 
-    <section className="section v5-expertise-section"><div className="shell v5-section-heading"><div><span className="kicker">04 / Экспертиза</span><h2>Проверяйте подход до первой встречи.</h2></div><div><p>Судебная практика, публикации и публичная репутация вынесены в самостоятельные разделы.</p></div></div><div className="shell v5-expertise-grid"><Link className="v5-case-folder" href="/cases"><span>СУДЕБНАЯ ПРАКТИКА</span><h3>Cases</h3><p>Публикуем только после обезличивания и подтверждения результата клиентом.</p><i>Открыть раздел ↗</i><div className="v5-folder-tab" aria-hidden="true" /></Link><div className="v5-publication-feature"><div className="v5-publication-head"><span>ПУБЛИКАЦИИ</span><Link href="/publications">Все материалы ↗</Link></div>{publications.slice(0,3).map((item,index) => <Link href={`/publications/${item.slug}`} key={item.slug}><small>0{index+1} · {item.eyebrow}</small><h3>{item.title}</h3><span>{item.readingTime} ↗</span></Link>)}</div></div></section>
+        <section className="ed-section ed-business" aria-labelledby="ed-business-title">
+          <div className="shell ed-business-layout">
+            <div className="ed-business-index"><p className="ed-eyebrow"><span className="ed-rule" /> 04 / Для компаний</p><span>Системная правовая поддержка</span></div>
+            <div>
+              <h2 id="ed-business-title">Юрист должен знать бизнес <em>не только по материалам дела.</em></h2>
+              <p>Договорная работа, претензии, взыскание задолженности, арбитраж и текущие вопросы компании — в рамках постоянного сопровождения.</p>
+              <Link href="/business" className="ed-btn ed-btn-dark">Юридический аутсорсинг <span aria-hidden="true">↗</span></Link>
+            </div>
+          </div>
+        </section>
 
-    <section className="section v5-reputation-section"><div className="shell v5-reputation-surface"><div className="v5-rating"><span className="kicker">05 / Репутация</span><strong>{reviewSummary.rating}</strong><p>{reviewSummary.count} публичных отзывов · {reviewSummary.source}</p><a href={reviewSummary.sourceUrl} target="_blank" rel="noreferrer">Проверить источник ↗</a></div><div className="v5-review-cards">{reviewHighlights.slice(0,3).map((item,index) => <article key={item.category}><span>0{index+1}</span><h3>{item.category}</h3><p>{item.text}</p></article>)}</div><Link className="v5-quiet-link" href="/reviews">Все отзывы <span>↗</span></Link></div></section>
+        <section className="ed-section ed-insights" aria-labelledby="ed-insights-title">
+          <div className="shell">
+            <div className="ed-section-top">
+              <p className="ed-eyebrow"><span className="ed-rule" /> 05 / Материалы</p>
+              <Link href="/publications" className="ed-text-link">Все публикации <span aria-hidden="true">↗</span></Link>
+            </div>
+            <div className="ed-heading-row ed-insights-intro">
+              <h2 id="ed-insights-title">Позицию юриста видно <em>в деталях.</em></h2>
+              <p>Практические материалы о документах, судебной стратегии и юридической поддержке бизнеса.</p>
+            </div>
+            <div className="ed-articles">
+              {publications.slice(0, 3).map((article, index) => (
+                <Link href={"/publications/" + article.slug} key={article.slug} className="ed-article">
+                  <div><span>0{index + 1}</span><span>{article.eyebrow}</span></div>
+                  <h3>{article.title}</h3>
+                  <span className="ed-article-arrow" aria-hidden="true">↗</span>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
 
-    <section className="section v5-contact-section"><div className="shell v5-contact-surface"><div><span className="kicker kicker-on-dark">06 / Следующий шаг</span><h2>Начните с точной оценки ситуации.</h2><p>{siteConfig.address.city}, ул. Гамарника, 72, офис 302 · {siteConfig.hours}</p></div><div><span>Первичная консультация</span><strong>{siteConfig.consultationPrice}</strong><Link className="button button-ice" href="/consultation">Записаться <span>↗</span></Link><Link className="v5-quiet-link light" href="/contacts">Все контакты <span>↗</span></Link></div></div></section>
-  </main><Footer /></>;
+        <section className="ed-reviews" aria-labelledby="ed-reviews-title">
+          <div className="shell ed-reviews-layout">
+            <div>
+              <p className="ed-eyebrow"><span className="ed-rule" /> 06 / Репутация</p>
+              <h2 id="ed-reviews-title">Доверие лучше проверять <em>в открытом источнике.</em></h2>
+            </div>
+            <div className="ed-rating-panel">
+              <div className="ed-rating-main"><strong>{reviewSummary.rating}</strong><div><span>2ГИС</span><p>{reviewSummary.count} опубликованных отзывов — данные, указанные в профиле фирмы</p></div></div>
+              <a href={reviewSummary.sourceUrl} target="_blank" rel="noopener noreferrer" className="ed-text-link">Смотреть отзывы в 2ГИС <span aria-hidden="true">↗</span></a>
+              <small>Актуальную оценку и количество отзывов проверяйте на странице источника.</small>
+            </div>
+          </div>
+        </section>
+
+        <section className="ed-consult" aria-labelledby="ed-consult-title">
+          <div className="shell ed-consult-layout">
+            <div><p className="ed-eyebrow"><span className="ed-rule" /> 07 / Контакт</p><h2 id="ed-consult-title">Начните с разговора <em>по существу.</em></h2><p>Опишите задачу и документы, которые уже есть. На первой консультации разберём, с чего разумно начать.</p></div>
+            <div className="ed-consult-action">
+              <span>Первичная консультация</span>
+              <strong>{siteConfig.consultationPrice}</strong>
+              <p>Очно в Хабаровске или дистанционно</p>
+              <Link href="/consultation" className="ed-btn ed-btn-light">Записаться на консультацию <span aria-hidden="true">↗</span></Link>
+              <a href={"tel:" + siteConfig.phone}>Или позвоните: {siteConfig.phoneDisplay}</a>
+            </div>
+          </div>
+        </section>
+      </main>
+      <Footer />
+    </>
+  );
 }

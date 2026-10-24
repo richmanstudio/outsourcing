@@ -1,3 +1,4 @@
+/* Legacy foundations remain for inner-page layouts during migration. */
 @import "./styles/v3-base.css";
 @import "./styles/v3-home.css";
 @import "./styles/v3-pages.css";
@@ -6,3 +7,5 @@
 @import "./styles/v4-corporate-hotfix.css";
 @import "./styles/portal-v2.css";
 @import "./styles/v5-premium.css";
+/* Editorial design system: highest-priority visual layer. */
+@import "./styles/v6-editorial.css";

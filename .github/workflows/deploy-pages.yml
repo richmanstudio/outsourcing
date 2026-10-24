@@ -7,6 +7,10 @@ on:
       - redesign-v3
       - portal-v2
       - redesign-v5
+      - redesign-v6-editorial
+  pull_request:
+    branches:
+      - main
   workflow_dispatch:
 
 permissions:
@@ -32,6 +36,8 @@ jobs:
         run: npm install --no-audit --no-fund
       - name: Type check
         run: npm run typecheck
+      - name: Lint
+        run: npm run lint
       - name: Build static export
         run: npm run build
         env:
