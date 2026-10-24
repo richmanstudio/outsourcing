@@ -478,3 +478,10 @@ body.menu-open { overflow:hidden; }
 .ed-reviews-source-score > p { max-width:430px; margin-top:9px; font-size:13px; line-height:1.6; color:var(--ed-muted); }
 .ed-reviews-source-score > a { margin-top:26px; }
 @media (max-width:780px) { .ed-reviews-source { grid-template-columns:1fr; gap:45px; } }
+
+/* Consultation: readable privacy and alternative channels */
+.ed-form-disclaimer { margin:16px 0 18px; color:#626a67; font-size:12px; line-height:1.6; }
+.ed-form-alternatives { display:flex; flex-wrap:wrap; gap:9px 19px; align-items:center; margin-top:21px; border-top:1px solid var(--ed-rule); padding-top:17px; font-size:12px; }
+.ed-form-alternatives span { width:100%; color:var(--ed-muted); font-size:11px; }
+.ed-form-alternatives a { text-decoration:underline; text-underline-offset:4px; }
+.ed-form-alternatives a:hover { color:var(--ed-brick); }
